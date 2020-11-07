@@ -1,0 +1,16 @@
+version: '3'
+services:
+
+  api:
+    image: doorsfan/drone-server
+    networks:
+      - application
+    ports:
+      - "4001:4001"
+    command: >
+        bash -c "npm start"
+    environment:
+      NODE_ENV: production
+
+networks:
+  application:
