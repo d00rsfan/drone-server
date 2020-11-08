@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: drone-server
+    spec:
+      containers:
+      - name: drone-server
+        image: #{ContainerRegistry}#/drone-server:#{Build.BuildId}#
+        command: ["/bin/sh"]
+        args: ["-c", "npm run start"]
+        env:
+          - name: NODE_ENV
+            value: "#{NODE_ENV}#"
+          - name: LOGSTASH_HOST
+            value: "#{LOGSTASH_HOST}#"
+          - name: LOGSTASH_PORT
+            value: "#{LOGSTASH_PORT}#"
+
+      imagePullSecrets:
+      - name: acr-auth
