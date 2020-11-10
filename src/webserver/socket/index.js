@@ -1,11 +1,12 @@
 const http = require('http');
 const socketIo = require('socket.io');
+const webConfig = require('config').get('Webserver');
 const emitMessageCommandInit = require('./emit/message');
+
 const randomDataEmitter = require('./emit/randomData');
 
-const {
-  observerSocketIoPath, socketIoMaxHttpBufferSize,
-} = require('../../config/keys');
+const { socketIoMaxHttpBufferSize } = webConfig;
+const { observerSocketIoPath } = webConfig.endpoints.socket;
 
 module.exports = (app) => {
   const server = http.createServer(app);
